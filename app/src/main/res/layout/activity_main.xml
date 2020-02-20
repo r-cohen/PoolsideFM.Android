@@ -36,25 +36,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:bytes="@{viewModel.visualizerBytes}" />
 
-        <com.google.android.material.card.MaterialCardView
+        <ImageView
+            android:id="@+id/trackImg"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="32dp"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:loadWithGlide="@{viewModel.streamInfo.artworkUrlLarge}"
+            android:scaleType="fitStart"
+            android:layout_marginStart="@dimen/main_margin"
+            android:layout_marginTop="@dimen/main_margin"
+            android:layout_marginEnd="@dimen/main_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/visualizer01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/floatingActionButton">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:loadWithGlide="@{viewModel.streamInfo.artworkUrlLarge}"
-                android:scaleType="fitStart"
-                />
-        </com.google.android.material.card.MaterialCardView>
+            android:contentDescription="@{viewModel.streamInfo.title}" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/trackImg"
+            app:layout_constraintEnd_toEndOf="@+id/trackImg"
+            app:layout_constraintBottom_toBottomOf="@+id/trackImg"
+            android:layout_marginStart="@dimen/main_margin"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:padding="12dp"
+            android:background="#22000000"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:visibility='@{viewModel.streamInfo.title.equals("") ? View.GONE : View.VISIBLE}'
+            android:text="@{viewModel.streamInfo.title}"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
