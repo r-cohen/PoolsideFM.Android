@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string translatable="false" name="stream_url">http://stream.radio.co/s98f81d47e/listen</string>
+    <string translatable="false" name="stream_status_url">https://public.radio.co/</string>
+</resources>

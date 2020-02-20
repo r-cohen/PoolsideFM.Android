@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.r.cohen.poolsidefm.streamservice.PlayerState"/>
+        <variable
+            name="viewModel"
+            type="com.r.cohen.poolsidefm.MainViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poolside"/>
+
+        <com.r.cohen.poolsidefm.views.VisualizerView
+            android:id="@+id/visualizer01"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:bytes="@{viewModel.visualizerBytes}" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="32dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButton">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                app:loadWithGlide="@{viewModel.streamInfo.artworkUrlLarge}"
+                android:scaleType="fitStart"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> viewModel.onTogglePlayClick()}"
+            android:visibility="@{viewModel.playerState == PlayerState.PREPARING ? View.GONE : View.VISIBLE}"
+            android:src="@{viewModel.playerState == PlayerState.PLAYING ? @drawable/ic_stop : @drawable/ic_play_arrow}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/visualizer01"
+            app:layout_constraintBottom_toBottomOf="@+id/visualizer01" />
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:scaleY="8"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.playerState == PlayerState.PREPARING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/visualizer01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/visualizer01" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
