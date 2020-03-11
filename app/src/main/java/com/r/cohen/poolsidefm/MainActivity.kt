@@ -13,8 +13,8 @@ import com.r.cohen.poolsidefm.streamservice.RadioStreamServiceClient
 
 class MainActivity : AppCompatActivity() {
     private val streamServiceClient = RadioStreamServiceClient()
-    private val viewModel = MainViewModel(streamServiceClient)
-    private val permissionsHandler = MainPermissionsHandler()
+    private val viewModel = MainViewModel(this, streamServiceClient)
+    val permissionsHandler = MainPermissionsHandler(this, viewModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         viewModel.onStart(this)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
-            viewModel.hasRecordAudioPermission = true
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), MainPermissionsHandler.permissionsRequestCode)
-        }
+        //permissionsHandler.checkPermissions()
     }
 
     override fun onRequestPermissionsResult(
@@ -37,10 +33,7 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        val grant = permissionsHandler.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grant == PackageManager.PERMISSION_GRANTED) {
-            viewModel.hasRecordAudioPermission = true
-        }
+        permissionsHandler.onRequestPermissionsResult(requestCode, permissions, grantResults)
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 

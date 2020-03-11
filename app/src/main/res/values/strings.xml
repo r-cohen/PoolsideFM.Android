@@ -2,4 +2,5 @@
     <string name="app_name">Poolside FM</string>
     <string name="notificationContentText">Poolside FM Radio</string>
     <string name="stopRadioNotificationButton">STOP</string>
+    <string name="visualization">VISUALIZATION</string>
 </resources>

@@ -13,6 +13,7 @@ import com.r.cohen.poolsidefm.streamservice.RadioStreamServiceEventsListener
 
 
 data class MainViewModel(
+    private val activity: MainActivity,
     private val streamClient: RadioStreamServiceClient
 ): BaseObservable(), RadioStreamServiceEventsListener {
 
@@ -50,8 +51,11 @@ data class MainViewModel(
         }
 
     var hasRecordAudioPermission: Boolean = false
+        @Bindable
+        get() = field
         set(value) {
             field = value
+            notifyPropertyChanged(BR.hasRecordAudioPermission)
             updateVisualizer()
         }
 
@@ -74,6 +78,10 @@ data class MainViewModel(
                 streamClient.togglePlayPause(false)
             }
         }
+    }
+
+    fun activateVisualization() {
+        activity.permissionsHandler.checkPermissions()
     }
 
     override fun onPlayerStateChanged(playerState: PlayerState, audioSessionId: Int) {
