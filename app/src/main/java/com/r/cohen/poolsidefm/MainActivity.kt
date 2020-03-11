@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         viewModel.onStart(this)
-        //permissionsHandler.checkPermissions()
+        permissionsHandler.checkPermissionsWithoutRequest()
     }
 
     override fun onRequestPermissionsResult(

@@ -20,6 +20,12 @@ class MainPermissionsHandler(
         }
     }
 
+    fun checkPermissionsWithoutRequest() {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            viewModel.hasRecordAudioPermission = true
+        }
+    }
+
     fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

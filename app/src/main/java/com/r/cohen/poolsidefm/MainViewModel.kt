@@ -21,7 +21,10 @@ data class MainViewModel(
         streamClient.listener = this
     }
 
-    var streamInfo = CurrentTrackModel()
+    var streamInfo = CurrentTrackModel(
+        title = "",
+        artworkUrl = "https://images.radio.co/station_logos/s98f81d47e.jpg",
+        artworkUrlLarge = "https://images.radio.co/station_logos/s98f81d47e.jpg")
         @Bindable
         get() = field
         set(value) {
